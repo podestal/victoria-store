@@ -15,3 +15,12 @@ class ProdcutViewSet(ModelViewSet):
         if self.request.method == 'POST':
             return serializers.CreateProductSerializer
         return serializers.ProductSerializer
+    
+class ProductImageViewSet(ModelViewSet):
+    serializer_class = serializers.ProductImageSerializer
+
+    def get_queryset(self):
+        return models.ProductImage.objects.filter(product_id = self.kwargs['product_pk'])
+    
+    def get_serializer_context(self):
+        return {'product_id': self.kwargs['product_pk']}

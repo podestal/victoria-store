@@ -6,4 +6,7 @@ router = routers.DefaultRouter()
 router.register('categories', views.CategoryViewSet, basename='categories')
 router.register('products', views.ProdcutViewSet, basename='products')
 
-urlpatterns = router.urls
+products_router = routers.NestedDefaultRouter(router, 'products', lookup='product')
+products_router.register('images', views.ProductImageViewSet, basename='product-images')
+
+urlpatterns = router.urls + products_router.urls
