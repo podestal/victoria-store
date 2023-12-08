@@ -8,8 +8,12 @@ class CategoryViewSet(ModelViewSet):
     queryset = models.Category.objects.all()
     serializer_class = serializers.CategorySerializer
 
+class BrandViewSet(ModelViewSet):
+    queryset = models.Category.objects.all()
+    serializer_class = serializers.BrandSerializer
+
 class ProdcutViewSet(ModelViewSet):
-    queryset = models.Product.objects.select_related('category').all()
+    queryset = models.Product.objects.select_related('category').prefetch_related('images').all()
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
